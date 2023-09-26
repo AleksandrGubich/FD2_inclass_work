@@ -31,4 +31,4 @@ do {
 
 yourAge = `Ваш возраст равен ${age}`;
 
-alert(yourAge)
+alert(yourAge);
