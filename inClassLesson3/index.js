@@ -12,11 +12,7 @@
 
 
 function checkOddNumber(...numbers) {
-    const oddNumbers = numbers.filter((number) => {
-        return number % 2 === 0;
-    });
-
-    return (oddNumbers);
+    return numbers.filter((num) => num % 2 === 0);
 }
 
 console.log(checkOddNumber(1, 2, 3, 4, 5, 6, 7, 8, 9));
