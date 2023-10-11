@@ -66,8 +66,8 @@ function yearNumSumm() {
         let splittedNum2 = 0
         let splittedNum3 = 0
 
-        if (String.numToSplit.length === 2){
-            
+        if (String.numToSplit.length === 2) {
+
         }
     }
 
