@@ -1,7 +1,7 @@
 const stringToCheck = 'giwhedfedsgdfsjsbwrfgwcer'
 
 function symbolsCount(string) {
-    
+
     let objectsAmount = {};
 
     for (const char of string) {
