@@ -57,18 +57,22 @@
 // console.log(counter)
 
 // ЗАДАЧА 6
-function yearNumSumm() {
-    const yearArray = {};
+function yearNumSum(from, to, counterValue) {
+    const yearsArray = [];
 
-    for (i = 49; i < arr.length; i++) {
-        let numToSplit = [i]
-        let splittedNum1 = 0
-        let splittedNum2 = 0
-        let splittedNum3 = 0
-
-        if (String.numToSplit.length === 2) {
-
+    for (let year = from; year <= to; year++) {
+        if (sumOfDigits(year) === counterValue) {
+            yearsArray.push(year)
         }
     }
 
+    function sumOfDigits(year) {
+        return year.toString().split('').reduce((a, b) => {
+            return Number(a) + Number(b)
+        });
+    }
+
+    return yearsArray;
 }
+
+console.log(yearNumSum(0, 2023, 13));
