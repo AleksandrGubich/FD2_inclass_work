@@ -1,22 +1,38 @@
+import { COLORS } from "./colors";
+import { createElementByColor } from "./createElementByColor";
+
 const mainEl = document.getElementById('main');
-const spanCollection = mainEl ? Array.from(mainEl.querySelectorAll<HTMLElement>('[data-color]')) : [];
+// const spanCollection = mainEl ? Array.from(mainEl.querySelectorAll<HTMLElement>('[data-color]')) : [];
 
-spanCollection.forEach((spanEl) => {
-    const colorValue = spanEl.textContent;
+mainEl?.appendChild(COLORS.reduce((fragment, color) => {
+    fragment.appendChild(createElementByColor(color));
+    return fragment;
+}, document.createDocumentFragment()));
 
-    if (colorValue) {
-        const paintBg = () => {
-            spanEl.style.setProperty('background-color', colorValue);
+mainEl?.addEventListener('click', (event) => {
+    const targetEl = event.target as HTMLElement;
+    const coloredEl = targetEl.closest<HTMLElement>('[data-color]');
 
-            setTimeout(() => {
-                spanEl.style.removeProperty('background-color')
-            }, 1_000);
-        };
+    if (coloredEl) {
+        const colorValue = coloredEl.getAttribute('data-color');
 
-        spanEl.addEventListener('click', paintBg);
-
-        // setTimeout(() => {
-        //     spanEl.removeEventListener('click', paintBg);
-        // }, 5_000);
-    };
+        coloredEl.style.setProperty('background-color', colorValue);
+    }
 });
+
+
+// spanCollection.forEach((spanEl) => {
+//     const colorValue = spanEl.textContent;
+
+//     if (colorValue) {
+//         const paintBg = () => {
+//             spanEl.style.setProperty('background-color', colorValue);
+
+//             setTimeout(() => {
+//                 spanEl.style.removeProperty('background-color')
+//             }, 1_000);
+//         };
+
+//         spanEl.addEventListener('click', paintBg);
+//     };
+// });
