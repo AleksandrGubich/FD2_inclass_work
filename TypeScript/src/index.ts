@@ -1,17 +1,47 @@
+import { formValidator } from "./formValidator";
+import { maxLength, nonEmptyArray, requiredText } from "./validators";
+
 const pizzaOrderForm = document.forms.namedItem('pizzaOrder');
+
+interface PizzaOrder {
+    pizzas: string[];
+    addons: string[];
+    paymentType: string;
+    customerName: string;
+    shippingAddress: string;
+}
+
+const pizzaOrderValidator = new formValidator<PizzaOrder>({
+    pizzas: [
+        nonEmptyArray,
+    ],
+    paymentType: [
+        requiredText,
+    ],
+    customerName: [
+        requiredText,
+        maxLength(100),
+    ],
+    shippingAddress: [
+        requiredText,
+        maxLength(200),
+    ],
+});
 
 pizzaOrderForm?.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const formData = new FormData(pizzaOrderForm);
 
-    const pizzaOrder = {
-        pizzas: formData.getAll('pizza'),
-        addons: formData.getAll('addon'),
-        paymentType: formData.get('paymentType'),
+    const pizzaOrder: PizzaOrder = {
+        pizzas: formData.getAll('pizza') as string[],
+        addons: formData.getAll('addon') as string[],
+        paymentType: String(formData.get('paymentType')),
         customerName: String(formData.get('customerName')).trim(),
-        shippingAdress: String(formData.get('shippingAddress')).trim()
+        shippingAddress: String(formData.get('shippingAddress')).trim()
     };
 
-    console.log(pizzaOrder);
+    const errors = pizzaOrderValidator.validate(pizzaOrder);
+
+    console.log(errors);
 });
