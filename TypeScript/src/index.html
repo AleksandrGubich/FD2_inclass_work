@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Title</title>
 </head>
+
 <body>
-    <form id="toDoList" name="myToDo">
-        <h1>Заполнить форму для последующего сохранения</h1>
-        <div>
-            <label>Введите запись</label>
-            <input type="text" name="toDoEl" placeholder="Текущая задача">
-        </div>
-        <button type="submit">Сохранить</button>
+    <form name="todo">
+        <label>
+            <input type="text" name="taskText" required>
+        </label>
+        <label>
+            <input type="datetime-local" name="date" required>
+        </label>
+        <button type="submit">Save</button>
     </form>
-    <br>
+    <ul id="results"></ul>
 </body>
+
 </html>

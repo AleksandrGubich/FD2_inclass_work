@@ -1,1 +1,0 @@
-export type validatorResult = null | Record<string, true>;
