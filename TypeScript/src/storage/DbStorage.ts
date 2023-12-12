@@ -16,10 +16,21 @@ export class DbStorage<Value extends { id: Id }, Id extends string | number> ext
     }
 
     init(): Promise<IDBDatabase> {
-        return super.init()
-            .then(() => {
-                indexedDB.open();
+        return super.init().then (() => {
+            return new Promise<IDBDatabase>((resolve, reject) => {
+                const request = indexedDB.open(this.#dbName, this.#migrations.length);
+
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+                request.onupgradeneeded = async ({ oldVersion }) => {
+                    const migrationsToApply = this.#migrations.slice(oldVersion);
+
+                    for (const migration of migrationsToApply) {
+                        await migration(request.transaction!);
+                    }
+                }
             });
+        })
     }
 
     get(id: Id): Promise<Value | null> {
